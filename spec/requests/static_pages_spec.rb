@@ -12,8 +12,14 @@ describe "Static pages" do
 
     it "should have the right title" do
       visit '/static_pages/home'
-      page.should have_selector('title', :text => "#{base_title} | Home")
+      page.should have_selector('title', :text => "#{base_title}")
     end
+
+    it "should not have a custom page title" do
+      visit '/static_pages/home'
+      page.should_not have_selector('title', :text => '| Home')
+    end
+
   end
 
   describe "Help page" do
@@ -22,10 +28,16 @@ describe "Static pages" do
       page.should have_selector('h1', :text => 'Help')
     end
 
-    it "should have the title 'Help'" do
+    it "should have the right title" do
       visit '/static_pages/help'
-      page.should have_selector('title', :text => "#{base_title} | Help")
+      page.should have_selector('title', :text => "#{base_title}")
     end
+
+    it "should not have a custom page title" do
+      visit '/static_pages/help'
+      page.should_not have_selector('title', :text => '| Help')
+    end
+
   end
 
   describe "About page" do
@@ -34,10 +46,16 @@ describe "Static pages" do
       page.should have_selector('h1', :text => 'About Us')
     end
 
-    it "should have the title 'About Us'" do
+    it "should have the right title" do
       visit '/static_pages/about'
-      page.should have_selector('title', :text => "#{base_title} | About Us")
+      page.should have_selector('title', :text => "#{base_title}")
     end
+
+    it "should not have a custom page title" do
+      visit '/static_pages/about'
+      page.should_not have_selector('title', :text => '| About Us')
+    end
+
   end
 
   describe "Contact page" do
@@ -45,10 +63,17 @@ describe "Static pages" do
       visit '/static_pages/contact'
       page.should have_selector('h1', :text => 'Contact')
     end
-    it "should have the title 'Contact'" do
+
+    it "should have the right title" do
       visit '/static_pages/contact'
-      page.should have_selector('title', :text => "#{base_title} | Contact")
+      page.should have_selector('title', :text => "#{base_title}")
     end
+
+    it "should not have a custom page title" do
+      visit '/static_pages/home'
+      page.should_not have_selector('title', :text => '| Contact')
+    end
+
   end
 
 end
