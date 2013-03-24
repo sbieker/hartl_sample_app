@@ -8,7 +8,12 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    if signed_in?
+      redirect_to root_url, notice: "Please sign out to create a new account."
+    else
+      @user = User.new
+    end
+
   end
 
   def show
@@ -16,13 +21,17 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
-    if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+    if signed_in?
+      redirect_to root_url,notice: "Please sign out to create a new account."
     else
-      render 'new'
+      @user = User.new(params[:user])
+      if @user.save
+        sign_in @user
+        flash[:success] = "Welcome to the Sample App!"
+        redirect_to @user
+      else
+        render 'new'
+      end
     end
   end
 
